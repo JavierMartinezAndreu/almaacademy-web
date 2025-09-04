@@ -1,39 +1,93 @@
+/* ======= Tema preconstruido Angular Material ======= */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 
-// Include theming for Angular Material with `mat.theme()`.
-// This Sass mixin will define CSS variables that are used for styling Angular Material
-// components according to the Material 3 design spec.
-// Learn more about theming and how to use it for your application's
-// custom components at https://material.angular.dev/guide/theming
-@use '@angular/material' as mat;
-
-html {
-  @include mat.theme((
-    color: (
-      primary: mat.$azure-palette,
-      tertiary: mat.$blue-palette,
-    ),
-    typography: Roboto,
-    density: 0,
-  ));
+/* ======= Tus estilos globales (UI pro) ======= */
+:root {
+  --bg: #0b1020;              /* fondo app */
+  --panel: #11162a;           /* fondo paneles */
+  --panel-2: #0e1426;         /* sidebar */
+  --text: #e8edf7;            /* texto principal */
+  --muted: #a5acc7;           /* texto secundario */
 }
 
-body {
-  // Default the application to a light color theme. This can be changed to
-  // `dark` to enable the dark color theme, or to `light dark` to defer to the
-  // user's system settings.
-  color-scheme: light;
-
-  // Set a default background, font and text colors for the application using
-  // Angular Material's system-level CSS variables. Learn more about these
-  // variables at https://material.angular.dev/guide/system-variables
-  background-color: var(--mat-sys-surface);
-  color: var(--mat-sys-on-surface);
-  font: var(--mat-sys-body-medium);
-
-  // Reset the user agent margin.
-  margin: 0;
-}
-/* You can add global styles to this file, and also import other style files */
-
+/* Reset suave */
+* { box-sizing: border-box; }
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  color: var(--text);
+  background: radial-gradient(1200px 800px at 10% -10%, #17224e 0%, #0b1020 50%, #0b1020 100%);
+  font-family: Inter, Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Links dentro de Material list */
+a { color: inherit; text-decoration: none; }
+
+/* Contenedor de página */
+.app-container { padding: 16px; }
+
+/* Tarjetas y elevaciones */
+.card {
+  background: var(--panel);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+}
+
+/* Tabla Material: mejor lectura */
+.mat-mdc-table {
+  background: var(--panel);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.mat-mdc-header-cell {
+  color: var(--muted);
+  font-weight: 600;
+}
+.mat-mdc-row:hover .mat-mdc-cell {
+  background: rgba(255,255,255,0.03);
+}
+
+/* Toolbar */
+.m-toolbar {
+  background: linear-gradient(90deg, rgba(27,38,86,0.95), rgba(20,28,56,0.95));
+  backdrop-filter: blur(6px);
+}
+
+/* Sidebar */
+.m-sidenav {
+  width: 260px;
+  background: var(--panel-2);
+  color: var(--text);
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.m-sidenav .logo {
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  font-size: 18px;
+  padding: 20px 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Nav items */
+.mat-mdc-list-item { border-radius: 8px; margin: 4px 8px; }
+.mat-mdc-list-item:hover { background: rgba(255,255,255,0.06); }
+.m-nav-active {
+  background: rgba(99, 102, 241, 0.18) !important;
+  color: #fff !important;
+  border: 1px solid rgba(99, 102, 241, 0.35);
+}
+
+/* Botones primarios más sólidos sobre fondo oscuro */
+.mdc-button--raised, .mdc-button--unelevated {
+  box-shadow: 0 8px 28px rgba(99,102,241,.35);
+}
+
+/* Inputs */
+.mdc-text-field--outlined {
+  --mdc-outlined-text-field-container-shape: 12px;
+}
+
+/* Helpers */
+.spacer { flex: 1 1 auto; }

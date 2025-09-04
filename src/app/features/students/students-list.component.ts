@@ -14,44 +14,48 @@ import { StudentsDialogComponent } from './students-dialog.component';
   selector: 'app-students-list',
   imports: [CommonModule, MatTableModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatDialogModule],
   template: `
-    <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px;">
-      <mat-form-field appearance="outline" style="flex:1;">
-        <mat-label>Buscar</mat-label>
-        <input matInput (input)="applyFilter($event)" placeholder="Nombre, DNI, email..." />
-      </mat-form-field>
-      <button mat-flat-button color="primary" (click)="openCreate()">
-        <mat-icon>add</mat-icon> Nuevo
-      </button>
+    <div class="card" style="margin-bottom:16px;">
+        <div style="display:flex; gap:12px; align-items:center;">
+        <mat-form-field appearance="outline" style="flex:1;">
+            <mat-label>Buscar</mat-label>
+            <input matInput (input)="applyFilter($event)" placeholder="Nombre, DNI, email..." />
+        </mat-form-field>
+        <button mat-flat-button color="primary" (click)="openCreate()">
+            <mat-icon>add</mat-icon> Nuevo
+        </button>
+        </div>
     </div>
 
-    <table mat-table [dataSource]="filtered" class="mat-elevation-z1" style="width:100%;">
-      <ng-container matColumnDef="full_name">
-        <th mat-header-cell *matHeaderCellDef> Nombre </th>
-        <td mat-cell *matCellDef="let row"> {{row.full_name}} </td>
-      </ng-container>
+    <div class="card">
+        <table mat-table [dataSource]="filtered" class="mat-elevation-z1" style="width:100%;">
+        <ng-container matColumnDef="full_name">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let row"> {{row.full_name}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="dni">
-        <th mat-header-cell *matHeaderCellDef> DNI </th>
-        <td mat-cell *matCellDef="let row"> {{row.dni}} </td>
-      </ng-container>
+        <ng-container matColumnDef="dni">
+            <th mat-header-cell *matHeaderCellDef> DNI </th>
+            <td mat-cell *matCellDef="let row"> {{row.dni}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
-      </ng-container>
+        <ng-container matColumnDef="email">
+            <th mat-header-cell *matHeaderCellDef> Email </th>
+            <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+        </ng-container>
 
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let row">
-          <button mat-button (click)="openEdit(row)">Editar</button>
-          <button mat-button color="warn" (click)="remove(row)">Borrar</button>
-        </td>
-      </ng-container>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="text-right"></th>
+            <td mat-cell *matCellDef="let row" style="text-align:right;">
+            <button mat-stroked-button (click)="openEdit(row)" style="margin-right:8px;">Editar</button>
+            <button mat-flat-button color="warn" (click)="remove(row)">Borrar</button>
+            </td>
+        </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="cols"></tr>
-      <tr mat-row *matRowDef="let row; columns: cols;"></tr>
-    </table>
-  `
+        <tr mat-header-row *matHeaderRowDef="cols"></tr>
+        <tr mat-row *matRowDef="let row; columns: cols;"></tr>
+        </table>
+    </div>
+    `
 })
 export class StudentsListComponent implements OnInit {
   private api = inject(StudentsService);
@@ -64,11 +68,12 @@ export class StudentsListComponent implements OnInit {
   ngOnInit() { this.load(); }
 
   load() {
-    this.api.list().subscribe(res => {
-      this.data = res;
-      this.filtered = res;
-    });
-  }
+        this.api.list().subscribe(res => {
+            console.log('students:', res);
+            this.data = res;
+            this.filtered = res;
+        });
+    }
 
   applyFilter(ev: Event) {
     const q = (ev.target as HTMLInputElement).value.toLowerCase();
